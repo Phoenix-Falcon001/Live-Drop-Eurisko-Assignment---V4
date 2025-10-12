@@ -1,0 +1,22 @@
+[
+  { "id": "P001", "title": "Red Sneakers", "price": 59.99, "image": "https://via.placeholder.com/200x200?text=Red+Sneakers", "tags": ["shoes", "red", "sneakers"], "stockQty": 15 },
+  { "id": "P002", "title": "Blue Hoodie", "price": 39.99, "image": "https://via.placeholder.com/200x200?text=Blue+Hoodie", "tags": ["clothing", "hoodie", "blue"], "stockQty": 20 },
+  { "id": "P003", "title": "Smart Watch", "price": 129.99, "image": "https://via.placeholder.com/200x200?text=Smart+Watch", "tags": ["electronics", "watch", "smart"], "stockQty": 10 },
+  { "id": "P004", "title": "Wireless Earbuds", "price": 79.99, "image": "https://via.placeholder.com/200x200?text=Wireless+Earbuds", "tags": ["electronics", "audio", "earbuds"], "stockQty": 25 },
+  { "id": "P005", "title": "Green T-Shirt", "price": 19.99, "image": "https://via.placeholder.com/200x200?text=Green+T-Shirt", "tags": ["clothing", "tshirt", "green"], "stockQty": 30 },
+  { "id": "P006", "title": "Yoga Mat", "price": 24.99, "image": "https://via.placeholder.com/200x200?text=Yoga+Mat", "tags": ["fitness", "yoga", "mat"], "stockQty": 12 },
+  { "id": "P007", "title": "Laptop Sleeve", "price": 29.99, "image": "https://via.placeholder.com/200x200?text=Laptop+Sleeve", "tags": ["accessories", "laptop", "sleeve"], "stockQty": 18 },
+  { "id": "P008", "title": "Black Jeans", "price": 49.99, "image": "https://via.placeholder.com/200x200?text=Black+Jeans", "tags": ["clothing", "jeans", "black"], "stockQty": 22 },
+  { "id": "P009", "title": "Sunglasses", "price": 34.99, "image": "https://via.placeholder.com/200x200?text=Sunglasses", "tags": ["accessories", "sun", "glasses"], "stockQty": 16 },
+  { "id": "P010", "title": "Leather Wallet", "price": 44.99, "image": "https://via.placeholder.com/200x200?text=Leather+Wallet", "tags": ["accessories", "wallet", "leather"], "stockQty": 14 },
+  { "id": "P011", "title": "Running Shorts", "price": 22.99, "image": "https://via.placeholder.com/200x200?text=Running+Shorts", "tags": ["clothing", "shorts", "running"], "stockQty": 20 },
+  { "id": "P012", "title": "Coffee Mug", "price": 12.99, "image": "https://via.placeholder.com/200x200?text=Coffee+Mug", "tags": ["kitchen", "mug", "coffee"], "stockQty": 35 },
+  { "id": "P013", "title": "Bluetooth Speaker", "price": 59.99, "image": "https://via.placeholder.com/200x200?text=Bluetooth+Speaker", "tags": ["electronics", "speaker", "audio"], "stockQty": 10 },
+  { "id": "P014", "title": "Backpack", "price": 69.99, "image": "https://via.placeholder.com/200x200?text=Backpack", "tags": ["bags", "backpack", "travel"], "stockQty": 17 },
+  { "id": "P015", "title": "White Sneakers", "price": 64.99, "image": "https://via.placeholder.com/200x200?text=White+Sneakers", "tags": ["shoes", "white", "sneakers"], "stockQty": 12 },
+  { "id": "P016", "title": "Desk Lamp", "price": 27.99, "image": "https://via.placeholder.com/200x200?text=Desk+Lamp", "tags": ["home", "lamp", "desk"], "stockQty": 14 },
+  { "id": "P017", "title": "Water Bottle", "price": 14.99, "image": "https://via.placeholder.com/200x200?text=Water+Bottle", "tags": ["fitness", "bottle", "water"], "stockQty": 40 },
+  { "id": "P018", "title": "Notebook", "price": 9.99, "image": "https://via.placeholder.com/200x200?text=Notebook", "tags": ["stationery", "notebook", "paper"], "stockQty": 50 },
+  { "id": "P019", "title": "Gaming Mouse", "price": 49.99, "image": "https://via.placeholder.com/200x200?text=Gaming+Mouse", "tags": ["electronics", "gaming", "mouse"], "stockQty": 13 },
+  { "id": "P020", "title": "Headphones", "price": 89.99, "image": "https://via.placeholder.com/200x200?text=Headphones", "tags": ["electronics", "audio", "headphones"], "stockQty": 8 }
+]

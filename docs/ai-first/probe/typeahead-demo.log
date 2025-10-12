@@ -1,0 +1,11 @@
+# Probe Log – Smart Search Typeahead
+# Date: 2025-09-22
+
+User input: "wireless ea"
+Embedding lookup → Top results:
+1. "Wireless Earbuds – Black"
+2. "Wireless Earphones with Case"
+3. "Wireless Earbuds Pro"
+4. "Wireless Earbuds – White"
+
+Latency: 187 ms (avg of 5 runs)
