@@ -1,0 +1,29 @@
+# Python / Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.env.local
+
+# Node / React / Vite
+node_modules/
+dist/
+build/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_out/
+*.ckpt
+
+# Large artifacts
+*.pt
+*.bin
+*.h5
+*.zip
+*.tar
+*.gz
+*.npz
+.DS_Store
