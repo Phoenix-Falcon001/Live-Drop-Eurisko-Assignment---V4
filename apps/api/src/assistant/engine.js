@@ -15,7 +15,7 @@ export class AssistantEngine {
   
   loadConfig() {
     try {
-      const configPath = path.resolve(process.cwd(), 'docs/prompts.yaml');
+      const configPath = './docs/prompts.yaml';
       const fileContents = fs.readFileSync(configPath, 'utf8');
       return YAML.parse(fileContents);
     } catch (error) {

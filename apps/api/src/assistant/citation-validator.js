@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 export class CitationValidator {
-  constructor(knowledgeBasePath = '../docs/ground-truth.json') {
+  constructor(knowledgeBasePath = './docs/ground-truth.json') {
     this.knowledgeBase = this.loadKnowledgeBase(knowledgeBasePath);
   }
   
   loadKnowledgeBase(filePath) {
     try {
-      const absolutePath = path.resolve(process.cwd(), filePath);
-      const data = fs.readFileSync(absolutePath, 'utf8');
+      const data = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(data);
     } catch (error) {
       console.error('Error loading knowledge base:', error);
