@@ -15,21 +15,83 @@ export class AssistantEngine {
   
   loadConfig() {
     try {
-      const configPath = './docs/prompts.yaml';
+      // Use absolute path that works in production
+      const configPath = path.join(process.cwd(), 'docs', 'prompts.yaml');
+      console.log('Looking for config at:', configPath);
+      
+      if (!fs.existsSync(configPath)) {
+        console.log('Config file not found, using defaults');
+        return this.getDefaultConfig();
+      }
+      
       const fileContents = fs.readFileSync(configPath, 'utf8');
       return YAML.parse(fileContents);
     } catch (error) {
       console.error('Error loading config:', error);
-      return {
-        assistant: {
-          identity: { name: 'Alex', role: 'Support Specialist' },
-          behavior: { never_reveal: [], always: [] },
-          intents: {}
-        }
-      };
+      return this.getDefaultConfig();
     }
   }
   
+  getDefaultConfig() {
+    return {
+      assistant: {
+        identity: { 
+          name: 'Alex', 
+          role: 'Customer Support Specialist',
+          company: 'TechStore'
+        },
+        behavior: { 
+          never_reveal: [
+            "I'm an AI",
+            "I'm ChatGPT/Llama/Claude", 
+            "I'm a language model",
+            "As an artificial intelligence"
+          ],
+          always: [
+            "Respond as a human support agent",
+            "Use the customer's name when known", 
+            "Be empathetic and solution-oriented",
+            "Cite policies when discussing store policies"
+          ]
+        },
+        intents: {
+          policy_question: {
+            behavior: "Provide accurate policy information with citations",
+            tone: "Professional, authoritative",
+            use_knowledge_base: true
+          },
+          order_status: {
+            behavior: "Check order status and provide updates",
+            tone: "Helpful, reassuring", 
+            call_functions: ["getOrderStatus"]
+          },
+          product_search: {
+            behavior: "Help find products and make recommendations",
+            tone: "Enthusiastic, helpful",
+            call_functions: ["searchProducts"]
+          },
+          complaint: {
+            behavior: "Listen empathetically and offer solutions",
+            tone: "Understanding, apologetic when appropriate"
+          },
+          chitchat: {
+            behavior: "Be friendly but redirect to support topics",
+            tone: "Warm, brief"
+          },
+          off_topic: {
+            behavior: "Politely decline and redirect to support topics",
+            tone: "Professional, firm"
+          },
+          violation: {
+            behavior: "Set clear boundaries and end conversation if needed",
+            tone: "Firm, professional"
+          }
+        }
+      }
+    };
+  }
+  
+  // ... keep all your existing methods the same ...
   async processQuery(userInput, context = {}) {
     const intent = IntentClassifier.classify(userInput);
     const response = {
@@ -46,31 +108,24 @@ export class AssistantEngine {
         case 'policy_question':
           response.text = await this.handlePolicyQuestion(userInput);
           break;
-          
         case 'order_status':
           response.text = await this.handleOrderStatus(userInput, context);
           break;
-          
         case 'product_search':
           response.text = await this.handleProductSearch(userInput);
           break;
-          
         case 'complaint':
           response.text = this.handleComplaint(userInput);
           break;
-          
         case 'chitchat':
           response.text = this.handleChitchat(userInput);
           break;
-          
         case 'off_topic':
           response.text = this.handleOffTopic(userInput);
           break;
-          
         case 'violation':
           response.text = this.handleViolation(userInput);
           break;
-          
         default:
           response.text = this.handleFallback(userInput);
       }
@@ -89,6 +144,7 @@ export class AssistantEngine {
     }
   }
   
+  // ... keep all your other methods exactly as they were ...
   async handlePolicyQuestion(userInput) {
     const relevantPolicies = this.citationValidator.findRelevantPolicies(userInput);
     
@@ -101,7 +157,6 @@ export class AssistantEngine {
   }
   
   async handleOrderStatus(userInput, context) {
-    // Extract order ID from input or use context
     let orderId = context.orderId;
     if (!orderId) {
       const orderMatch = userInput.match(/order\s+(#?)(\w+)/i);
@@ -125,7 +180,6 @@ export class AssistantEngine {
   }
   
   async handleProductSearch(userInput) {
-    // Extract search query
     const searchMatch = userInput.match(/(?:looking for|find|search|show me)\s+(.+)/i);
     const query = searchMatch ? searchMatch[1] : userInput;
     
