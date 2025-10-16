@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
 import { connectDB } from './db.js';
-import Customer from './models/customer.js';
-import Product from './models/product.js';
-import Order from './models/order.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
