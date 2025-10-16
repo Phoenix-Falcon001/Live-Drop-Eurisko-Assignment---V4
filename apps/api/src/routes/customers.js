@@ -1,29 +1,42 @@
 import express from "express";
+import Customer from "../models/Customer.js";  // Capital C
+
 const router = express.Router();
 
-// Simple test endpoint - no database calls
-router.get("/", (req, res) => {
-  const { email } = req.query;
-  
-  if (!email) {
-    return res.status(400).json({ error: "Email query parameter is required" });
-  }
+// Get customer by email
+router.get("/", async (req, res) => {
+  try {
+    const { email } = req.query;
+    
+    if (!email) {
+      return res.status(400).json({ error: "Email query parameter is required" });
+    }
 
-  // Mock response for testing
-  res.json({
-    id: "507f1f77bcf86cd799439011",
-    name: "Demo User",
-    email: email,
-    phone: "+1-555-0000",
-    address: {
-      street: "999 Test Blvd",
-      city: "San Francisco",
-      state: "CA",
-      zipCode: "94102",
-      country: "USA"
-    },
-    message: "Customer route is working!"
-  });
+    const customer = await Customer.findOne({ email });
+    
+    if (!customer) {
+      return res.status(404).json({ error: "Customer not found" });
+    }
+
+    res.json(customer);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get customer by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const customer = await Customer.findById(req.params.id);
+    
+    if (!customer) {
+      return res.status(404).json({ error: "Customer not found" });
+    }
+
+    res.json(customer);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 export default router;
