@@ -1,6 +1,6 @@
-import Order from "../models/order.js";
-import Product from "../models/product.js";
-import Customer from "../models/customer.js";
+import Order from "../models/Order.js";
+import Product from "../models/Product.js";
+import Customer from "../models/Customer.js";
 
 export class FunctionRegistry {
   constructor() {
