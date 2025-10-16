@@ -1,0 +1,51 @@
+[
+  {
+    "id": "Policy3.1",
+    "question": "What is your return policy?",
+    "answer": "Items can be returned within 30 days of purchase with original receipt. All items must be in original condition with tags attached. Refunds are processed within 5-7 business days.",
+    "category": "returns",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Policy3.2",
+    "question": "Do you offer exchanges?",
+    "answer": "Yes, we offer exchanges for items within 30 days of purchase. The item must be unused and in original packaging. Exchanges are subject to product availability.",
+    "category": "returns",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Shipping2.1",
+    "question": "What are your shipping options?",
+    "answer": "We offer Standard (5-7 days, $5.99), Express (2-3 days, $12.99), and Overnight ($24.99) shipping. Free shipping on orders over $50.",
+    "category": "shipping",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Shipping2.2",
+    "question": "Do you ship internationally?",
+    "answer": "We currently ship to the United States, Canada, and select European countries. International shipping costs vary by location and typically take 10-14 business days.",
+    "category": "shipping",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Warranty4.1",
+    "question": "What is your warranty policy?",
+    "answer": "Electronics come with a 1-year manufacturer warranty. Clothing and accessories have a 90-day warranty against defects. Contact support with your order number to initiate a warranty claim.",
+    "category": "warranty",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Payment1.1",
+    "question": "What payment methods do you accept?",
+    "answer": "We accept Visa, MasterCard, American Express, PayPal, and Apple Pay. All payments are processed securely through encrypted channels.",
+    "category": "payment",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  },
+  {
+    "id": "Policy5.1",
+    "question": "What is your privacy policy?",
+    "answer": "We protect your personal information and never share it with third parties without consent. You can review our full privacy policy on our website's footer section.",
+    "category": "privacy",
+    "lastUpdated": "2025-10-01T00:00:00Z"
+  }
+]
