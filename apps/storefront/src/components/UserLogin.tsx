@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Customer } from '../lib/api';
+
+interface Customer {
+  _id: string;
+  name: string;
+  email: string;
+}
 
 interface UserLoginProps {
   onLogin: (customer: Customer) => void;
