@@ -1,0 +1,20 @@
+[
+  {
+    "qid": "Q01",
+    "category": "Accounts",
+    "question": "How do I create a seller account on Shoplite?",
+    "answer": "Visit the Shoplite seller registration page, fill in your business details, and complete verification within 2-3 business days."
+  },
+  {
+    "qid": "Q02",
+    "category": "Orders",
+    "question": "What are Shoplite's return policies and how do I track my order?",
+    "answer": "Shoplite offers a 30-day return window. Track your order from the Order Status page using your order ID."
+  },
+  {
+    "qid": "Q03",
+    "category": "Payments",
+    "question": "Which payment methods are supported?",
+    "answer": "Shoplite accepts Visa, MasterCard, PayPal, and Apple Pay for all verified users."
+  }
+]

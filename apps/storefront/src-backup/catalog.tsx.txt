@@ -1,0 +1,27 @@
+import React from "react"
+import { Link } from "react-router-dom"
+
+export default function Catalog() {
+  const mock = [
+    { id: "1", title: "Test Product 1", price: 10 },
+    { id: "2", title: "Test Product 2", price: 20 },
+  ]
+
+  return (
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4">Catalog</h1>
+      <div className="grid grid-cols-2 gap-4">
+        {mock.map(p => (
+          <Link
+            key={p.id}
+            to={`/p/${p.id}`}
+            className="p-4 bg-white rounded shadow hover:shadow-lg transition"
+          >
+            <h2 className="font-semibold">{p.title}</h2>
+            <p>${p.price}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
