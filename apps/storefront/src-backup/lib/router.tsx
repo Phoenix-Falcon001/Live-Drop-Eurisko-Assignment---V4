@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:889e636dffc54d6b9ccb6a1a70a149b0c3b8cf1ee0d96fba8b92f61c7da96bd6
-size 663
+import React from "react"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Catalog from "../pages/catalog"
+import Product from "../pages/product"
+import Cart from "../pages/cart"
+import Checkout from "../pages/checkout"
+import OrderStatus from "../pages/order-status"
+
+const router = createBrowserRouter([
+  { path: "/", element: <Catalog /> },
+  { path: "/p/:id", element: <Product /> },
+  { path: "/cart", element: <Cart /> },
+  { path: "/checkout", element: <Checkout /> },
+  { path: "/order/:id", element: <OrderStatus /> },
+])
+
+export default function AppRouter() {
+  return <RouterProvider router={router} />
+}

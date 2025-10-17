@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f36b54b05859f4a01140ef45a8445ed73ffd014980e3573a9525029441644317
-size 555
+import React from 'react';
+import { formatPrice } from '../../lib/format';
+
+interface PriceDisplayProps {
+  price: number;
+  className?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+export const PriceDisplay: React.FC<PriceDisplayProps> = ({ price, className = '', size = 'md' }) => {
+  const sizeClasses = {
+    sm: 'text-sm font-medium',
+    md: 'text-lg font-bold',
+    lg: 'text-2xl font-extrabold text-primary',
+  };
+
+  return (
+    <span className={`${sizeClasses[size]} ${className}`}>
+      {formatPrice(price)}
+    </span>
+  );
+};

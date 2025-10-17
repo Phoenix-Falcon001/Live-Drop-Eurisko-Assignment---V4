@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e08eafc14ff2144312723e1d6e1b2ad720bfd0b4910b2ed39cb9527af1501565
-size 515
+import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
+
+export default function GoBackButton() {
+  const navigate = useNavigate()
+  return (
+    <motion.button
+      onClick={() => navigate(-1)}
+      className="bg-white text-blue-600 font-semibold px-6 py-2 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition-colors duration-300"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      ← Go Back
+    </motion.button>
+  )
+}
