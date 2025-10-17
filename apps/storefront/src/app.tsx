@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import UserLogin from './components/UserLogin';
 import SupportAssistant from './components/SupportAssistant';
 import AdminDashboard from './components/AdminDashboard';
@@ -29,32 +28,42 @@ function App() {
     setCurrentView('products');
   };
 
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'products':
+        return <Products />;
+      case 'cart':
+        return <Cart />;
+      case 'admin':
+        return <AdminDashboard />;
+      case 'assistant':
+        return <SupportAssistant />;
+      default:
+        return <Products />;
+    }
+  };
+
   if (!currentCustomer) {
     return <UserLogin onLogin={handleLogin} />;
   }
 
   return (
-    <Router>
-      <div className="app">
-        <Header 
-          currentView={currentView}
-          onViewChange={setCurrentView}
-          onCartClick={() => setCurrentView('cart')}
-        />
+    <div className="app">
+      <Header 
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        onCartClick={() => setCurrentView('cart')}
+      />
 
-        <main className="app-main">
-          {currentView === 'products' && <Products />}
-          {currentView === 'cart' && <Cart />}
-          {currentView === 'admin' && <AdminDashboard />}
-          {currentView === 'assistant' && <SupportAssistant />}
-        </main>
+      <main className="app-main">
+        {renderCurrentView()}
+      </main>
 
-        <div className="user-info">
-          <span>Welcome, {currentCustomer.name}</span>
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
-        </div>
+      <div className="user-info">
+        <span>Welcome, {currentCustomer.name}</span>
+        <button onClick={handleLogout} className="logout-btn">Logout</button>
       </div>
-    </Router>
+    </div>
   );
 }
 

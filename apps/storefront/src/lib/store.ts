@@ -1,5 +1,15 @@
 import { create } from 'zustand';
-import { Product } from './api';
+
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  tags: string[];
+  imageUrl: string;
+  stock: number;
+}
 
 interface CartItem {
   product: Product;
@@ -20,29 +30,29 @@ export const useStore = create<AppState>((set, get) => ({
   cart: [],
   
   addToCart: (product: Product) => {
-    set((state) => {
-      const existingItem = state.cart.find(item => item.product._id === product._id);
-      
-      if (existingItem) {
-        return {
-          cart: state.cart.map(item =>
-            item.product._id === product._id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        };
-      } else {
-        return {
-          cart: [...state.cart, { product, quantity: 1 }]
-        };
-      }
-    });
+    const state = get();
+    const existingItem = state.cart.find(item => item.product._id === product._id);
+    
+    if (existingItem) {
+      set({
+        cart: state.cart.map(item =>
+          item.product._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      });
+    } else {
+      set({
+        cart: [...state.cart, { product, quantity: 1 }]
+      });
+    }
   },
   
   removeFromCart: (productId: string) => {
-    set((state) => ({
+    const state = get();
+    set({
       cart: state.cart.filter(item => item.product._id !== productId)
-    }));
+    });
   },
   
   updateQuantity: (productId: string, quantity: number) => {
@@ -51,13 +61,14 @@ export const useStore = create<AppState>((set, get) => ({
       return;
     }
     
-    set((state) => ({
+    const state = get();
+    set({
       cart: state.cart.map(item =>
         item.product._id === productId
           ? { ...item, quantity }
           : item
       )
-    }));
+    });
   },
   
   clearCart: () => {
@@ -65,10 +76,12 @@ export const useStore = create<AppState>((set, get) => ({
   },
   
   getTotalItems: () => {
-    return get().cart.reduce((total, item) => total + item.quantity, 0);
+    const state = get();
+    return state.cart.reduce((total, item) => total + item.quantity, 0);
   },
   
   getTotalPrice: () => {
-    return get().cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+    const state = get();
+    return state.cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 }));
