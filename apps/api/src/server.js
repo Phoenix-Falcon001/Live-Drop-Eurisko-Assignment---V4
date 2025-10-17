@@ -1,12 +1,29 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./db.js";
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
 
 // Connect to database first
 await connectDB();
+
+// ✅ CORS Configuration - SIMPLE VERSION (guaranteed to work)
+app.use(cors());
+
+// Alternative CORS with specific origins (use this if you want to be more restrictive)
+/*
+app.use(cors({
+  origin: [
+    'https://live-drop-eurisko-assignment-v4-qsxswbuu4-bassameters-projects.vercel.app',
+    'https://live-drop-eurisko-assignment-v4.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ],
+  credentials: true
+}));
+*/
 
 app.use(express.json());
 
@@ -24,7 +41,7 @@ const productRoutes = (await import("./routes/products.js")).default;
 const orderRoutes = (await import("./routes/orders.js")).default;
 const analyticsRoutes = (await import("./routes/analytics.js")).default;
 const dashboardRoutes = (await import("./routes/dashboard.js")).default;
-const assistantRoutes = (await import("./routes/assistant.js")).default; // ADD THIS LINE
+const assistantRoutes = (await import("./routes/assistant.js")).default;
 
 // Use routes
 app.use("/api/customers", customerRoutes);
@@ -32,7 +49,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/assistant", assistantRoutes); // ADD THIS LINE
+app.use("/api/assistant", assistantRoutes);
 
 // Basic routes
 app.get("/", (req, res) => res.send("API Running 🚀"));
