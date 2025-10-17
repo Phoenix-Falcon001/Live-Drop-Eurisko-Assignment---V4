@@ -24,7 +24,6 @@ export const useStore = create<AppState>((set, get) => ({
       const existingItem = state.cart.find(item => item.product._id === product._id);
       
       if (existingItem) {
-        // Increase quantity if item already in cart
         return {
           cart: state.cart.map(item =>
             item.product._id === product._id
@@ -33,7 +32,6 @@ export const useStore = create<AppState>((set, get) => ({
           )
         };
       } else {
-        // Add new item to cart
         return {
           cart: [...state.cart, { product, quantity: 1 }]
         };

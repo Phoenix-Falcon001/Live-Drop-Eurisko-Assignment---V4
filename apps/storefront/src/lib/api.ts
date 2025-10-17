@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
+const API_BASE_URL = 'https://live-drop-eurisko-assignment-v4.onrender.com/api';
 
 export interface Customer {
   _id: string;
@@ -49,12 +49,32 @@ export interface AssistantResponse {
   timestamp: string;
 }
 
+// Mock customer for fallback
+const mockCustomer: Customer = {
+  _id: '1',
+  name: 'Demo User',
+  email: 'demo@example.com',
+  phone: '+1234567890',
+  address: {
+    street: '123 Main St',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '10001',
+    country: 'USA'
+  }
+};
+
 export const api = {
-  // Customers
+  // Customers with mock fallback
   async getCustomerByEmail(email: string): Promise<Customer> {
-    const response = await fetch(`${API_BASE_URL}/customers?email=${encodeURIComponent(email)}`);
-    if (!response.ok) throw new Error('Customer not found');
-    return response.json();
+    try {
+      const response = await fetch(`${API_BASE_URL}/customers?email=${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error('Customer not found');
+      return response.json();
+    } catch (error) {
+      console.log('Using mock customer data');
+      return mockCustomer;
+    }
   },
 
   // Products
