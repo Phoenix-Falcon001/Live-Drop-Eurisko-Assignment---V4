@@ -22,7 +22,6 @@ const UserLogin: React.FC<UserLoginProps> = ({ onLogin }) => {
       email: email || 'demo@example.com'
     };
     
-    console.log('Logging in:', demoCustomer);
     onLogin(demoCustomer);
   };
 
@@ -32,34 +31,44 @@ const UserLogin: React.FC<UserLoginProps> = ({ onLogin }) => {
       name: 'Demo User', 
       email: 'demo@example.com'
     };
-    console.log('Demo login:', demoCustomer);
     onLogin(demoCustomer);
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2>Welcome to Our Store</h2>
-        <p>Enter your email to continue</p>
+        <div className="login-header">
+          <div className="logo">🛍️ TechStore</div>
+          <h1>Welcome Back</h1>
+          <p>Sign in to your account to continue</p>
+        </div>
         
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Enter any email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="email-input"
-          />
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="email-input"
+            />
+          </div>
+          
           <button type="submit" className="login-btn">
-            Continue
+            Continue to Shop
           </button>
         </form>
         
-        <div className="demo-info">
-          <p>Or use demo account:</p>
+        <div className="demo-section">
+          <div className="divider">
+            <span>Quick Demo</span>
+          </div>
           <button onClick={handleDemoLogin} className="demo-btn">
-            Login as Demo User
+            🚀 Use Demo Account
           </button>
+          <p className="demo-hint">Click above to instantly access the demo store</p>
         </div>
       </div>
     </div>
