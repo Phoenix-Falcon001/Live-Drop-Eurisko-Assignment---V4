@@ -1,61 +1,84 @@
-import React from "react"
-import { Link, useNavigate } from "react-router-dom"
-import Layout from "../components/Layout"
-import { useCartStore } from "../lib/store"
-import { formatCurrency } from "../lib/format"
+import React from 'react';
+import { useStore } from '../lib/store';
 
-export default function Cart() {
-  const { items, addItem, removeItem, clearCart } = useCartStore((state) => state)
-  const navigate = useNavigate()
+const Cart: React.FC = () => {
+  const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useStore();
 
-  const total = items.reduce((sum, i) => sum + i.price * i.qty, 0)
+  console.log('🛒 Cart contents:', cart); // Debug log
 
-  if (!items.length)
+  if (cart.length === 0) {
     return (
-      <Layout>
-        <p className="mt-10 text-center">
-          Your cart is empty. <Link to="/">Add items first</Link>.
-        </p>
-      </Layout>
-    )
+      <div className="cart-page">
+        <div className="empty-cart">
+          <h2>Your cart is empty</h2>
+          <p>Add some products to get started!</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <Layout>
-      <h1 className="text-3xl font-bold mb-4">Your Cart</h1>
-      <ul className="space-y-2">
-        {items.map((i) => (
-          <li key={i.id} className="flex justify-between items-center bg-white p-2 rounded shadow">
-            <span>{i.title} x{i.qty}</span>
-            <div className="flex items-center gap-2">
-              <button onClick={() => removeItem(i.id)} className="px-2 bg-red-500 text-white rounded hover:bg-red-600">
-                -
-              </button>
-              <button onClick={() => addItem(i)} className="px-2 bg-green-500 text-white rounded hover:bg-green-600">
-                +
-              </button>
-              <span>{formatCurrency(i.price * i.qty)}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-4 font-semibold">Total: {formatCurrency(total)}</p>
-
-      <div className="flex gap-2 mt-4">
-        <button
-          onClick={() => clearCart()}
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
-        >
+    <div className="cart-page">
+      <div className="cart-header">
+        <h2>Shopping Cart ({cart.length} items)</h2>
+        <button className="clear-cart-btn" onClick={clearCart}>
           Clear Cart
         </button>
-
-        <Link
-          to="/checkout"
-          className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Proceed to Checkout
-        </Link>
       </div>
-    </Layout>
-  )
-}
+
+      <div className="cart-items">
+        {cart.map((item) => (
+          <div key={item.product._id} className="cart-item">
+            <div className="item-image">
+              <img src={item.product.imageUrl} alt={item.product.name} />
+            </div>
+            
+            <div className="item-details">
+              <h3>{item.product.name}</h3>
+              <p className="item-price">${item.product.price}</p>
+              <p className="item-stock">In stock: {item.product.stock}</p>
+            </div>
+
+            <div className="quantity-controls">
+              <button 
+                onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
+                disabled={item.quantity <= 1}
+              >
+                -
+              </button>
+              <span className="quantity">{item.quantity}</span>
+              <button 
+                onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                disabled={item.quantity >= item.product.stock}
+              >
+                +
+              </button>
+            </div>
+
+            <div className="item-total">
+              ${(item.product.price * item.quantity).toFixed(2)}
+            </div>
+
+            <button 
+              className="remove-btn"
+              onClick={() => removeFromCart(item.product._id)}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="cart-summary">
+        <div className="total">
+          <strong>Total: ${getTotalPrice().toFixed(2)}</strong>
+        </div>
+        <button className="checkout-btn">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Cart;

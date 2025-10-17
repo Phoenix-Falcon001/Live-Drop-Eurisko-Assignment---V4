@@ -1,48 +1,76 @@
-import create from "zustand"
-import { persist } from "zustand/middleware"
+import { create } from 'zustand';
+import { Product } from './api';
 
-export interface CartItem {
-  id: string
-  title: string
-  price: number
-  qty: number
+interface CartItem {
+  product: Product;
+  quantity: number;
 }
 
-interface CartState {
-  items: CartItem[]
-  addItem: (item: any) => void
-  updateQty: (id: string, qty: number) => void
-  removeItem: (id: string) => void
-  clearCart: () => void
+interface AppState {
+  cart: CartItem[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
+  getTotalItems: () => number;
+  getTotalPrice: () => number;
 }
 
-export const useCartStore = create<CartState>()(
-  persist(
-    (set, get) => ({
-      items: [],
-      addItem: (item) => {
-        const exist = get().items.find((i) => i.id === item.id)
-        if (exist) {
-          set({
-            items: get().items.map((i) =>
-              i.id === item.id ? { ...i, qty: i.qty + 1 } : i
-            ),
-          })
-        } else {
-          set({ items: [...get().items, { ...item, qty: 1 }] })
-        }
-      },
-      updateQty: (id, qty) => {
-        if (qty < 1) return
-        set({
-          items: get().items.map((i) => (i.id === id ? { ...i, qty } : i)),
-        })
-      },
-      removeItem: (id) => {
-        set({ items: get().items.filter((i) => i.id !== id) })
-      },
-      clearCart: () => set({ items: [] }),
-    }),
-    { name: "storefront-cart" }
-  )
-)
+export const useStore = create<AppState>((set, get) => ({
+  cart: [],
+  
+  addToCart: (product: Product) => {
+    set((state) => {
+      const existingItem = state.cart.find(item => item.product._id === product._id);
+      
+      if (existingItem) {
+        // Increase quantity if item already in cart
+        return {
+          cart: state.cart.map(item =>
+            item.product._id === product._id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        };
+      } else {
+        // Add new item to cart
+        return {
+          cart: [...state.cart, { product, quantity: 1 }]
+        };
+      }
+    });
+  },
+  
+  removeFromCart: (productId: string) => {
+    set((state) => ({
+      cart: state.cart.filter(item => item.product._id !== productId)
+    }));
+  },
+  
+  updateQuantity: (productId: string, quantity: number) => {
+    if (quantity <= 0) {
+      get().removeFromCart(productId);
+      return;
+    }
+    
+    set((state) => ({
+      cart: state.cart.map(item =>
+        item.product._id === productId
+          ? { ...item, quantity }
+          : item
+      )
+    }));
+  },
+  
+  clearCart: () => {
+    set({ cart: [] });
+  },
+  
+  getTotalItems: () => {
+    return get().cart.reduce((total, item) => total + item.quantity, 0);
+  },
+  
+  getTotalPrice: () => {
+    return get().cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+  }
+}));
