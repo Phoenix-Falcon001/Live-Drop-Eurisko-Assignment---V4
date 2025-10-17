@@ -4,7 +4,7 @@ import { useStore } from '../lib/store';
 const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useStore();
 
-  console.log('🛒 Cart contents:', cart); // Debug log
+  console.log('🛒 Cart contents:', cart);
 
   if (cart.length === 0) {
     return (
@@ -81,4 +81,4 @@ const Cart: React.FC = () => {
   );
 };
 
-export default Cart;
+export default Cart; // ✅ FIXED: Default export

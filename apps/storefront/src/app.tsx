@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import UserLogin from './components/UserLogin';
 import SupportAssistant from './components/SupportAssistant';
 import AdminDashboard from './components/AdminDashboard';
@@ -19,7 +19,9 @@ function App() {
   const [currentView, setCurrentView] = useState<'products' | 'admin' | 'assistant' | 'cart'>('products');
 
   const handleLogin = (customer: Customer) => {
+    console.log('App: User logged in', customer);
     setCurrentCustomer(customer);
+    setCurrentView('products');
   };
 
   const handleLogout = () => {
@@ -41,20 +43,10 @@ function App() {
         />
 
         <main className="app-main">
-          <Routes>
-            <Route path="/" element={
-              currentView === 'products' && <Products />
-            } />
-            <Route path="/cart" element={
-              currentView === 'cart' && <Cart />
-            } />
-            <Route path="/admin" element={
-              currentView === 'admin' && <AdminDashboard />
-            } />
-            <Route path="/assistant" element={
-              currentView === 'assistant' && <SupportAssistant />
-            } />
-          </Routes>
+          {currentView === 'products' && <Products />}
+          {currentView === 'cart' && <Cart />}
+          {currentView === 'admin' && <AdminDashboard />}
+          {currentView === 'assistant' && <SupportAssistant />}
         </main>
 
         <div className="user-info">

@@ -22,6 +22,17 @@ const UserLogin: React.FC<UserLoginProps> = ({ onLogin }) => {
       email: email || 'demo@example.com'
     };
     
+    console.log('Logging in:', demoCustomer);
+    onLogin(demoCustomer);
+  };
+
+  const handleDemoLogin = () => {
+    const demoCustomer: Customer = {
+      _id: '1',
+      name: 'Demo User', 
+      email: 'demo@example.com'
+    };
+    console.log('Demo login:', demoCustomer);
     onLogin(demoCustomer);
   };
 
@@ -45,7 +56,10 @@ const UserLogin: React.FC<UserLoginProps> = ({ onLogin }) => {
         </form>
         
         <div className="demo-info">
-          <p>Demo: demo@example.com</p>
+          <p>Or use demo account:</p>
+          <button onClick={handleDemoLogin} className="demo-btn">
+            Login as Demo User
+          </button>
         </div>
       </div>
     </div>

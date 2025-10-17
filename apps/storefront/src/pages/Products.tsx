@@ -1,29 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { api, Product } from '../lib/api';
 import { useStore } from '../lib/store';
-import Button from '../components/atoms/Button';
+
+interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  tags: string[];
+  imageUrl: string;
+  stock: number;
+}
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filter, setFilter] = useState('');
-  const [loading, setLoading] = useState(true);
-  const { addToCart, cart } = useStore(); // ✅ ADD cart to trigger re-renders
+  const { addToCart, cart } = useStore();
 
+  // Mock products data
   useEffect(() => {
-    loadProducts();
+    const mockProducts: Product[] = [
+      {
+        _id: '1',
+        name: 'Wireless Bluetooth Headphones',
+        description: 'High-quality wireless headphones with noise cancellation',
+        price: 199.99,
+        category: 'Electronics',
+        tags: ['audio', 'wireless', 'bluetooth'],
+        imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
+        stock: 50
+      },
+      {
+        _id: '2',
+        name: 'Smartphone Pro',
+        description: 'Latest smartphone with advanced camera and battery life',
+        price: 999.99,
+        category: 'Electronics',
+        tags: ['mobile', 'smartphone', 'camera'],
+        imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400',
+        stock: 30
+      },
+      {
+        _id: '3',
+        name: 'Laptop Ultra',
+        description: 'Thin and light laptop for professionals',
+        price: 1299.99,
+        category: 'Electronics',
+        tags: ['laptop', 'portable', 'work'],
+        imageUrl: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400',
+        stock: 20
+      }
+    ];
+    setProducts(mockProducts);
   }, []);
-
-  const loadProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await api.getProducts();
-      setProducts(response.products);
-    } catch (error) {
-      console.error('Failed to load products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const filteredProducts = products.filter(product =>
     filter === '' || 
@@ -33,19 +62,14 @@ const Products: React.FC = () => {
   );
 
   const handleAddToCart = (product: Product) => {
-    console.log('🛒 Adding product to cart:', product.name);
+    console.log('Adding to cart:', product.name);
     if (product.stock > 0) {
       addToCart(product);
-      // Force UI update by showing alert
       alert(`Added ${product.name} to cart!`);
     } else {
       alert('Sorry, this product is out of stock!');
     }
   };
-
-  if (loading) {
-    return <div className="loading">Loading products...</div>;
-  }
 
   return (
     <div className="products-page">
@@ -70,12 +94,6 @@ const Products: React.FC = () => {
             onClick={() => setFilter('audio')}
           >
             Audio
-          </button>
-          <button 
-            className={filter === 'mobile' ? 'filter-btn active' : 'filter-btn'}
-            onClick={() => setFilter('mobile')}
-          >
-            Mobile
           </button>
         </div>
       </div>
@@ -112,15 +130,6 @@ const Products: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {filteredProducts.length === 0 && (
-        <div className="no-products">
-          <p>No products found matching your filter.</p>
-          <button onClick={() => setFilter('')}>
-            Show All Products
-          </button>
-        </div>
-      )}
     </div>
   );
 };
