@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Customer } from './lib/api';
-import { UserLogin } from './components/UserLogin';
-import { SupportAssistant } from './components/SupportAssistant';
-import { AdminDashboard } from './components/AdminDashboard';
-import { Products } from './pages/Products';
-import { Cart } from './pages/cart';
+import UserLogin from './components/UserLogin';
+import SupportAssistant from './components/SupportAssistant';
+import AdminDashboard from './components/AdminDashboard';
+import Products from './pages/Products';
+import Cart from './pages/cart';
 import Header from './components/organisms/Header';
 import './App.css';
 
